@@ -6,41 +6,100 @@ using UnityEngine.UI;
 public class CalcHeroParams : MonoBehaviour
 {
     [SerializeField]
-    Text _refInfo, _bodInfo,
-         _intInfo, _wisInfo,
-         _hitPointsInfo, _manaPointsInfo;
+    Text RCount, BCount, ICount, WCount, CPoints;
 
-    public void CalcParams(IHeroCard iheroCard)
+    internal int _rCount, _bCount, _iCount, _wCount, _CharPoints;
+
+    public void AddChar(HeroCard hero)
     {
-        iheroCard.HitPoints = iheroCard.Body * 5;
-        iheroCard.ManaPoints = iheroCard.Wisdom * 7;
-
-        _refInfo.text = iheroCard.Reflex.ToString();
-        _bodInfo.text = iheroCard.Body.ToString();
-        _intInfo.text = iheroCard.Intellegence.ToString();
-        _wisInfo.text = iheroCard.Wisdom.ToString();
-        _hitPointsInfo.text = iheroCard.HitPoints.ToString();
-        _manaPointsInfo.text = iheroCard.ManaPoints.ToString();
+        hero.AddingCharacteristics(_rCount, _bCount, _iCount, _wCount);
+        CalcParams(hero);
+        Clear();
     }
 
-    public void AddReflex(IHeroCard iheroCard)
+    public void CalcParams(HeroCard heroCard)
     {
-        iheroCard.Reflex++;
+        heroCard._hitPoints = heroCard._body * 5f;
+        heroCard._manaPoints = heroCard._wisdom * 7f;
+        heroCard._magicalAC = heroCard._wisdom * 1.1f;
+        heroCard._recoveryHP = heroCard._body * 0.15f;
+        heroCard._recoveryMP = heroCard._wisdom * 0.2f;
     }
 
-    public void AddBody(IHeroCard iheroCard)
+    public void AddReflex(HeroCard hero)
     {
-        iheroCard.Body++;
+        if (_CharPoints != 0)
+        {
+            hero._reflex++;
+        }
     }
 
-    public void AddIntellegence(IHeroCard iheroCard)
+    public void AddBody(HeroCard hero)
     {
-        iheroCard.Intellegence++;
+        if (_CharPoints != 0)
+        {
+            hero._body++;
+        }
     }
 
-    public void AddWisdom(IHeroCard iheroCard)
+    public void AddIntellegence(HeroCard hero)
     {
-        iheroCard.Wisdom++;
+        if (_CharPoints != 0)
+        {
+            hero._intellegence++;
+        }
     }
 
+    public void AddWisdom(HeroCard hero)
+    {
+        if (_CharPoints != 0)
+        {
+            hero._wisdom++;
+        }
+    }
+
+    public void AddReflex_alt()
+    {
+        if (_CharPoints != 0)
+        {
+            _rCount++;
+            RCount.text = _rCount.ToString();
+        }
+    }
+
+    public void AddBody_alt()
+    {
+        if (_CharPoints != 0)
+        {
+            _bCount++;
+            BCount.text = _bCount.ToString();
+        }
+    }
+
+    public void AddIntellegence_alt()
+    {
+        if (_CharPoints != 0)
+        {
+            _iCount++;
+            ICount.text = _iCount.ToString();
+        }
+    }
+
+    public void AddWisdom_alt()
+    {
+        if (_CharPoints != 0)
+        {
+            _wCount++;
+            WCount.text = _wCount.ToString();
+        }
+    }
+
+    private void Clear()
+    {
+        _rCount = 0;
+        _bCount = 0;
+        _iCount = 0;
+        _wCount = 0;
+    }
 }
+
