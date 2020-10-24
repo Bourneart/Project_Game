@@ -18,4 +18,14 @@ public interface IHeroCard
     float MagicalArmorClass { get; set; }
     float RecoveryHitPoints { get; set; }
     float RecoveryManaPoints { get; set; }
+
+    string TakeReflex();
+    string TakeBody();
+    string TakeIntellegence();
+    string TakeWisdom();
+
+    void AddingCharacteristics(int r, int b, int i, int w);
+
+
+
 }

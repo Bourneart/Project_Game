@@ -1,13 +1,21 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroCard : MonoBehaviour, IHeroCard
 {
+    [SerializeField]
+    Text _refInfo, _bodInfo,
+         _intInfo, _wisInfo,
+         _hitPointsInfo, _manaPointsInfo;
+
+    CalcHeroParams calcHeroParams = new CalcHeroParams();
+
     string IHeroCard.PlayerID => _playerID;
 
     string IHeroCard.HeroName => _heroName;
 
-    int IHeroCard.Reflex { get => _reflex; set => throw new NotImplementedException(); }
+    int IHeroCard.Reflex { get => _reflex; set => AddReflex(calcHeroParams); }
     int IHeroCard.Body { get => _body; set => throw new NotImplementedException(); }
     int IHeroCard.Intellegence { get => _intellegence; set => throw new NotImplementedException(); }
     int IHeroCard.Wisdom { get => _wisdom; set => throw new NotImplementedException(); }
@@ -21,22 +29,58 @@ public class HeroCard : MonoBehaviour, IHeroCard
     float IHeroCard.RecoveryHitPoints { get => _recoveryHP; set => throw new NotImplementedException(); }
     float IHeroCard.RecoveryManaPoints { get => _recoveryMP; set => throw new NotImplementedException(); }
 
-    private readonly string _playerID;
+    private string _playerID;
 
-    internal string _heroName;
+    public string _heroName;
 
-    protected int _reflex;
-    protected int _body;
-    protected int _intellegence;
-    protected int _wisdom;
-    protected int _level;
-    protected int _money;
+    internal int _reflex;
+    internal int _body;
+    internal int _intellegence;
+    internal int _wisdom;
+    internal int _level;
+    internal int _money;
 
-    protected float _expirience;
-    protected float _hitPoints;
-    protected float _manaPoints;
-    protected float _magicalAC;
-    protected float _recoveryHP;
-    protected float _recoveryMP;
+    internal float _expirience;
+    internal float _hitPoints;
+    internal float _manaPoints;
+    internal float _magicalAC;
+    internal float _recoveryHP;
+    internal float _recoveryMP;
 
+    private int AddReflex(CalcHeroParams calc)
+    {
+        return _reflex += calc._rCount;
+    }
+
+    public string TakeReflex()
+    {
+        string r = _reflex.ToString();
+        return r;
+    }
+
+    public string TakeBody()
+    {
+        string b = _body.ToString();
+        return b;
+    }
+
+    public string TakeIntellegence()
+    {
+        string i = _intellegence.ToString();
+        return i;
+    }
+
+    public string TakeWisdom()
+    {
+        string w = _wisdom.ToString();
+        return w;
+    }
+
+    public void AddingCharacteristics(int r, int b, int i, int w)
+    {
+        _reflex += r;
+        _body += b;
+        _intellegence += i;
+        _wisdom += w;
+    }
 }
